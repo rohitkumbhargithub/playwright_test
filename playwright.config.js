@@ -18,6 +18,11 @@ module.exports = defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
+
+  // retries:2, // check the two times
+  // or npx playwright test ./tests/login.spec.js --headed --retries=2
+
+
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -33,15 +38,20 @@ module.exports = defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-
     // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
+    //   name: 'chromium',
+    //   use: {...devices['Desktop Chrome'], // Use the predefined Desktop Chrome device
+    //     viewport: { width: 500, height: 558 }, // Override the viewport size
+    //     screenshot: 'on', // Enable screenshot capturing for all tests in this project
+    //     video: "on",
+    //     trace: "on"
+    //   }
     // },
+
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
     // {
     //   name: 'webkit',

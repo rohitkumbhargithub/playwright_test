@@ -1,8 +1,16 @@
 const { test, expect } = require("@playwright/test");
 
+// use the viewport
+test.use({viewport: { width: 1120, height: 600}});
+
 test("valid login and logout", async ({ page }) => {
   // Step 1: Go to the sign-in page
   await page.goto("https://remix-jira-clone.onrender.com/sign-in");
+
+  //check the width
+  console.log(await page.viewportSize().width);
+  //check the height
+  console.log(await page.viewportSize().height);
 
   // Step 2: Fill in email and password
   await page.getByPlaceholder("Enter Email").type("playwright@gmail.com", { delay: 200 });
